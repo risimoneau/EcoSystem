@@ -1,0 +1,11 @@
+version: 0.1
+phases:
+  install:
+    commands:
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - python train_model.py
+      - tar -czvf model.tar.gz -C model .
+      - aws s3 cp model.tar.gz s3://Heart-Disease-bucket/model/
+      - python inference.py
